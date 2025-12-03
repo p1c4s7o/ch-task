@@ -1,0 +1,73 @@
+services:
+  app:
+    profiles:
+      - simple
+    build:
+      context: .
+      dockerfile: docker/simple/Dockerfile
+    ports:
+      - "8080:80"
+      - "81:81"
+    environment:
+      - CONTAINER_MODE=simple
+      - PYTHONWARNINGS=ignore
+      - L5_SWAGGER_CONST_HOST="http://127.0.0.1:81"
+    command: php artisan serve --host=0.0.0.0 --port=81
+
+  laravel:
+    profiles:
+      - medium
+      - hard
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+
+  nginx-sites:
+    profiles:
+      - medium
+    build:
+      context: .
+
+
+  hard:
+    profiles:
+      - hard
+    build:
+      context: .
+
+  docker-socket-proxy:
+    profiles:
+      - hard
+    image: tecnativa/docker-socket-proxy
+    container_name: docker-socket-proxy
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      CONTAINERS: 1
+      IMAGES: 0
+      AUTH: 0
+      INFO: 1
+      NETWORKS: 1
+      SERVICES: 1
+      VOLUMES: 0
+      POST: 0
+    ports:
+      - "2375:2375"
+
+  redis:
+    profiles:
+      - simple
+      - medium
+    #      - hard
+    image: redis:7-alpine
+    container_name: my-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    command: [ "redis-server", "--appendonly", "yes" ]
+
+volumes:
+  redis-data:

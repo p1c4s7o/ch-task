@@ -1,0 +1,389 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "CityHostTask",
+        "description": "API documentation",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:8000",
+            "description": "Simple API Server"
+        },
+        {
+            "url": "http://my-default-host.com",
+            "description": "API Server (env: L5_SWAGGER_CONST_HOST)"
+        }
+    ],
+    "paths": {
+        "/api/v{version}/domain/create": {
+            "post": {
+                "tags": [
+                    "Domain"
+                ],
+                "summary": "Create domain",
+                "operationId": "15aca429e5d08a43448372b69b1ae4c9",
+                "parameters": [
+                    {
+                        "name": "version",
+                        "in": "path",
+                        "description": "API version",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "domain"
+                                ],
+                                "properties": {
+                                    "domain": {
+                                        "type": "string",
+                                        "example": "test"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Domain creation has been queued",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "created"
+                                        },
+                                        "domain": {
+                                            "type": "string",
+                                            "example": "test"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "Domain successfully created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "created"
+                                        },
+                                        "domain": {
+                                            "type": "string",
+                                            "example": "test"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "202": {
+                        "description": "Domain creation queued",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "created"
+                                        },
+                                        "domain": {
+                                            "type": "string",
+                                            "example": "test"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Domain already exists",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Domain already exists"
+                                        },
+                                        "domain": {
+                                            "type": "string",
+                                            "example": "test"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "423": {
+                        "description": "Domain creation is already in progress",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Domain is being created"
+                                        },
+                                        "domain": {
+                                            "type": "string",
+                                            "example": "test"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    },
+                    "415": {
+                        "description": "Malformed JSON structure"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+        },
+        "/api/v{version}/domain/{domain}": {
+            "delete": {
+                "tags": [
+                    "Domain"
+                ],
+                "summary": "Delete domain",
+                "operationId": "867b05f721a758b8ae780b952ecdd6ff",
+                "parameters": [
+                    {
+                        "name": "version",
+                        "in": "path",
+                        "description": "API version",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "domain",
+                        "in": "path",
+                        "description": "Domain to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "test"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Domain deleted"
+                    },
+                    "404": {
+                        "description": "Domain not found"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+        },
+        "/api/v{version}/status/{domain}": {
+            "get": {
+                "tags": [
+                    "Domain"
+                ],
+                "summary": "Check domain status",
+                "operationId": "c6d2e9af7f3417e671bd96c7534023d6",
+                "parameters": [
+                    {
+                        "name": "version",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "domain",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "test"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Domain status"
+                    },
+                    "404": {
+                        "description": "Domain not found"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            },
+            "head": {
+                "tags": [
+                    "Domain"
+                ],
+                "summary": "Check domain status (HEAD)",
+                "operationId": "3491abba7f315feff432f9d52efcbebc",
+                "parameters": [
+                    {
+                        "name": "version",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "domain",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "test"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Domain status"
+                    },
+                    "403": {
+                        "description": "Request contains invalid or missing parameters"
+                    },
+                    "404": {
+                        "description": "Domain not found"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+        },
+        "/api/server/stop": {
+            "post": {
+                "tags": [
+                    "Nginx"
+                ],
+                "summary": "Stop Nginx server",
+                "operationId": "2768bd87d0659c4745e72585ef881e17",
+                "responses": {
+                    "200": {
+                        "description": "Server stopped"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+        },
+        "/api/server/start": {
+            "post": {
+                "tags": [
+                    "Nginx"
+                ],
+                "summary": "Start Nginx server",
+                "operationId": "12238693e23be52051f4c6c22eed7004",
+                "responses": {
+                    "200": {
+                        "description": "Server started"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+        },
+        "/api/server/reload": {
+            "post": {
+                "tags": [
+                    "Nginx"
+                ],
+                "summary": "Reload Nginx server",
+                "operationId": "1d1dbbf9d34b9acef7270d2caff6e144",
+                "responses": {
+                    "200": {
+                        "description": "Server reloaded"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+        },
+        "/api/server/restart": {
+            "post": {
+                "tags": [
+                    "Nginx"
+                ],
+                "summary": "Restart Nginx server",
+                "operationId": "9d1a528c1b031db356b79ae82daa1f76",
+                "responses": {
+                    "200": {
+                        "description": "Server restarted"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+        },
+        "/api/server/status": {
+            "get": {
+                "tags": [
+                    "Nginx"
+                ],
+                "summary": "Get Nginx server status",
+                "operationId": "2135d8084472a87de1c3d4413eece68f",
+                "responses": {
+                    "200": {
+                        "description": "Current server status"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Domain",
+            "description": "Domain"
+        },
+        {
+            "name": "Nginx",
+            "description": "Nginx"
+        }
+    ]
+}
