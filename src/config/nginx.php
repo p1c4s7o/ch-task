@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'driver' => env('SYSTEM_DRIVER', 'native'),
+    'driver' => env('SYSTEM_DRIVER', 'systemd'),
 
     /**
      * @deprecated use_docker

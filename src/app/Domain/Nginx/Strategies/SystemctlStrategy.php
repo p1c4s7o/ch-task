@@ -12,6 +12,7 @@ class SystemctlStrategy implements CommandStrategyInterface
     public function build(string $command): array
     {
         return match ($command) {
+            'start' => ['systemctl', 'start', 'nginx'],
             'restart' => ['systemctl', 'restart', 'nginx'],
             'status' => ['systemctl', 'status', 'nginx'],
             'reload' => ['nginx', '-s', 'reload'],
