@@ -12,12 +12,12 @@ class BrewServiceStrategy implements CommandStrategyInterface
     public function build(string $command): array
     {
         return match ($command) {
-            'reload' => ['brew', 'services', 'restart', 'nginx'],
-            'restart' => ['brew', 'services', 'restart', 'nginx'],
-            'status' => ['brew', 'services', 'info', 'nginx'],
             'stop' => ['brew', 'services', 'stop', 'nginx'],
             'start' => ['brew', 'services', 'start', 'nginx'],
+            'restart' => ['brew', 'services', 'restart', 'nginx'],
+            'status' => ['brew', 'services', 'info', 'nginx'],
 
+            'reload' => ['nginx', '-s', 'reload'],
             'test' => ['nginx', '-t'],
 
             default => throw new \InvalidArgumentException("Unknown command '$command'"),

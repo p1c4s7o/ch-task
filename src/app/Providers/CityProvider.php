@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Providers;
+namespace app\Providers;
 
+use App\Contracts\Nginx\CommandExecutorInterface;
 use App\Contracts\Nginx\CommandMiddlewareInterface;
 use App\Contracts\Nginx\CommandServiceInterface;
 use App\Domain\Nginx\Enums\NginxApiVersion;
@@ -14,7 +15,6 @@ use App\Services\Nginx\NginxCommandService;
 use App\Services\Nginx\NginxHost;
 use App\Services\Nginx\NginxRedisCommandService;
 use App\Services\Nginx\NginxStore;
-use App\Services\Nginx\ProcessExecutor;
 use Exception;
 use Illuminate\Support\ServiceProvider;
 use Symfony\Component\Filesystem\Filesystem;
@@ -72,10 +72,20 @@ class CityProvider extends ServiceProvider
 
             $strategy = new $map_strategy[$use_strategy];
 
+
+            $executor = config('nginx.executor');
+            if(! $executor)
+                throw new Exception('Executor is null. Must be App\Contracts\Nginx\CommandExecutorInterface');
+
+            $executor = $this->app->make($executor);
+            if(! is_subclass_of($executor, CommandExecutorInterface::class))
+                throw new Exception('Not implemented App\Contracts\Nginx\CommandExecutorInterface');
+
+
             return $this->app->make(NginxCommandService::class, [
                 'strategy' => $strategy,
                 'pipeline' => $pipeline,
-                'executor' => new ProcessExecutor,
+                'executor' => $executor,
             ]);
         });
         $this->app->singleton(NginxHostServiceFactory::class, function () use ($stub_path, $nginx_dir_conf) {

@@ -3,18 +3,13 @@
 return [
     'driver' => env('SYSTEM_DRIVER', 'systemd'),
 
-    /**
-     * @deprecated use_docker
-     */
-    'use_docker' => !is_null(env('NGINX_CONTAINER')),
-
     'use_redis' => !is_null(env('CITYHOST_USE_REDIS', true)),
 
     'middleware' => [
-//        \App\Services\Nginx\Middleware\DockerPrefixMiddleware::class,
+        //        \App\Services\Nginx\Middleware\DockerPrefixMiddleware::class,
         \App\Services\Nginx\Middleware\SupervisorPrefixMiddleware::class,
         \App\Services\Nginx\Middleware\ValidateMiddleware::class,
-//        \App\Services\Nginx\Middleware\LoggingMiddleware::class,
+        //        \App\Services\Nginx\Middleware\LoggingMiddleware::class,
     ],
 
     'strategy' => [
@@ -22,7 +17,19 @@ return [
         'service' => \App\Domain\Nginx\Strategies\ServiceStrategy::class,
         'native' => \App\Domain\Nginx\Strategies\NativeNginxStrategy::class,
         'brew' => \App\Domain\Nginx\Strategies\BrewServiceStrategy::class,
+
+        // remote control
+        'rest_api' => \App\Domain\Nginx\Strategies\RestAPIStrategy::class,
     ],
+
+    // remote uri
+    'executor_provider' => env('EXEC_PROVIDER'),
+
+    // key
+    'secret_provider' => env('SECRET_PROVIDER'),
+
+//    'executor' => \App\Services\Nginx\RestApiExecutor::class,
+    'executor' => \App\Services\Nginx\ProcessExecutor::class,
 
     'docker' => [
         'container' => env('NGINX_CONTAINER'),

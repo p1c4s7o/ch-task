@@ -25,13 +25,21 @@ services:
     build:
       context: .
       dockerfile: docker/php/Dockerfile
+    ports:
+      - "81:81"
+    networks:
+      - backend
 
   nginx-sites:
     profiles:
       - medium
     build:
       context: .
-
+    ports:
+      - "8080:80"
+      - "8001-8005:8001-8005"
+    networks:
+      - backend
 
   hard:
     profiles:
@@ -41,6 +49,7 @@ services:
 
   docker-socket-proxy:
     profiles:
+#      - medium
       - hard
     image: tecnativa/docker-socket-proxy
     container_name: docker-socket-proxy
@@ -81,3 +90,6 @@ services:
 
 volumes:
   redis-data:
+
+networks:
+  backend:
