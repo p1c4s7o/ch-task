@@ -1,15 +1,14 @@
 #!/bin/sh
 set -e
 
-APP_DIR="/var/www/html"
+APP_DIR="/var/www"
+PROJECT_DIR="laravel"
 cd $APP_DIR
 
-mkdir -p /run/nginx
-mkdir -p /var/log/nginx
+if [ ! -d "$PROJECT_DIR" ] || [ ! -f "$PROJECT_DIR/artisan" ]; then
+  composer create-project laravel/laravel $PROJECT_DIR
+  cd $PROJECT_DIR
 
-if [ ! -d "ch" ] || [ ! -f "ch/artisan" ]; then
-  composer create-project laravel/laravel ch
-  cd ch
   composer require symfony/filesystem
   composer require predis/predis
   composer require darkaonline/l5-swagger
@@ -17,18 +16,20 @@ if [ ! -d "ch" ] || [ ! -f "ch/artisan" ]; then
   rm .env
   rm .env.example
   cd ../../
-  cp -rf ./src/* html/ch/
-  cp -rf ./src/.env.example html/ch/
+  cp -rf ./src/* $APP_DIR/$PROJECT_DIR/
+  cp -rf ./src/.env.example $APP_DIR/$PROJECT_DIR/
 
-  cd $APP_DIR/ch
+  cd $APP_DIR/$PROJECT_DIR
 
   php -r "copy('.env.example', '.env');"
   php artisan key:generate
   php artisan config:clear
-  rm -rf ../../src
+#  rm -rf ../../src
 
   php artisan l5-swagger:generate
 
 fi
+
+cd $APP_DIR/$PROJECT_DIR
 
 exec "$@"

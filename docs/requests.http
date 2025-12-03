@@ -1,0 +1,58 @@
+### ENV
+
+//target host (REST API)
+@host = http://localhost:81
+
+// supported 1,2,3
+// v3(test) supported endpoints /domain/(create|status)
+@version = 1
+
+//target host (create, delete)
+@domain = test
+
+//target port (domain, example: test:port)
+@port = 8082
+
+POST {{host}}/api/v{{version}}/domain/create
+Content-Type: application/json
+
+{
+  "domain": "{{domain}}",
+  "port": {{port}}
+}
+
+### Delete domain
+DELETE {{host}}/api/v{{version}}/domain/{{domain}}
+
+### Delete domain v2 (host:port)
+DELETE {{host}}/api/v2/domain/{{domain}}:{{port}}
+
+
+### Get domain status
+GET {{host}}/api/v{{version}}/status/{{domain}}
+
+### Get domain status v2
+GET {{host}}/api/v{{version}}/status/{{domain}}:{{port}}}
+
+
+### Head domain status
+HEAD {{host}}/api/v{{version}}/status/{{domain}}
+
+### Head domain status v2
+HEAD {{host}}/api/v{{version}}/status/{{domain}}:{{port}}}
+
+
+### Stop server
+POST {{host}}/api/server/stop
+
+### Start server
+POST {{host}}/api/server/start
+
+### Reload server
+POST {{host}}/api/server/reload
+
+### Restart server
+POST {{host}}/api/server/restart
+
+### Server status
+GET {{host}}/api/server/status

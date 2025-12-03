@@ -1,0 +1,6 @@
+*.log
+.DS_Store
+/.idea
+/docker/simple/www/laravel
+/docker/medium/www/laravel
+/docker/hard/www/laravel

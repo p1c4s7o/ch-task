@@ -7,6 +7,7 @@ services:
       dockerfile: docker/simple/Dockerfile
     ports:
       - "8080:80"
+      - "8001-8005:8001-8005"
       - "81:81"
     volumes:
       - ./docker/simple/nginx/sites:/etc/nginx/conf.d
@@ -16,7 +17,6 @@ services:
       - PYTHONWARNINGS=ignore
       - L5_SWAGGER_CONST_HOST="http://127.0.0.1:81"
     command: supervisord -c /etc/supervisord.conf
-#               php artisan serve --host=0.0.0.0 --port=81
 
   laravel:
     profiles:

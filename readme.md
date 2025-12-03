@@ -4,12 +4,61 @@ ____
 Тестове завдання
 > Нижче будуть показані можливі варіанти деплойменту (розвертання) проєкту.
 
+## Приклад роботи аплікації 
+
+_Стандартний домен_ 
+<img src="docs/localhost_8080.png" alt="localhost:8080">
+
+_Тестовий піддомен_ 
+<img src="docs/td33_localhost_8080.png" alt="td33.localhost:8080">
+
+_Стандартний піддомен з портом_ 
+<img src="docs/td33_localhost_8082.png" alt="td33.localhost:8082">
+
 ## Requirements
 
 - PC
 - Browser
 - Docker(Desktop)
-- 8GB Memory
+- 16GB Memory
+
+## Environments
+
+## Основні шляхи
+
+### `CITYHOST_DOMAINS_PATH`
+Папка NGINX, у якій знаходяться конфігурації доменів користувачів.  
+**Приклад:** `/etc/nginx/conf.d`
+
+### `CITYHOST_WWW_PATH`
+Папка, де розміщуються файли сайтів користувачів.  
+**Приклад:** `/var/www/html`
+
+### `CITYHOST_STUBS_PATH`
+Папка зі шаблонами сторінок та конфігурацій  
+(заглушки, шаблонні NGINX-конфіги тощо).  
+**За замовчуванням:** `/var/www/laravel/storage/stubs`
+
+---
+
+## Діапазон портів
+
+### `CITYHOST_PORT_MIN`
+Мінімальний номер порту, з якого користувач може створювати нові служби.  
+**Default:** `8001`, для тесту
+
+### `CITYHOST_PORT_MAX`
+Максимальний номер порту, до якого користувач може створювати нові служби.  
+**Default:** `8005`, для тесту
+
+---
+
+## Інше
+
+### `CITYHOST_V3_ENABLE`
+Увімкнути тестову версію API `/api/v3`.  
+Приймає `true` або `false`.  
+**Default:** `false`
 
 ## API Endpoints
 

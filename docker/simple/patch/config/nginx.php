@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'driver' => env('SYSTEM_DRIVER', 'service'),
+    'driver' => env('SYSTEM_DRIVER', 'systemd'),
 
     /**
      * @deprecated use_docker
@@ -14,7 +14,7 @@ return [
 //        \App\Services\Nginx\Middleware\DockerPrefixMiddleware::class,
         \App\Services\Nginx\Middleware\SupervisorPrefixMiddleware::class,
         \App\Services\Nginx\Middleware\ValidateMiddleware::class,
-        \App\Services\Nginx\Middleware\LoggingMiddleware::class,
+//        \App\Services\Nginx\Middleware\LoggingMiddleware::class,
     ],
 
     'strategy' => [
