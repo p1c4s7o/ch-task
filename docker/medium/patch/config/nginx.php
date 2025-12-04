@@ -3,7 +3,7 @@
 return [
     'driver' => env('SYSTEM_DRIVER', 'rest_api'),
 
-    'use_redis' => !is_null(env('CITYHOST_USE_REDIS', true)),
+    'use_redis' => env('CITYHOST_USE_REDIS', false),
 
     'middleware' => [
         //        \App\Services\Nginx\Middleware\DockerPrefixMiddleware::class,

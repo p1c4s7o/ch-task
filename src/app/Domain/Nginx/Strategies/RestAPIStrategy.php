@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Domain\Nginx\Strategies;
+namespace App\Domain\Nginx\Strategies;
 
 use App\Contracts\Nginx\CommandStrategyInterface;
 use RuntimeException;

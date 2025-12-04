@@ -11,7 +11,7 @@
 @domain = test
 
 //target port (domain, example: test:port)
-@port = 8082
+@port = 8002
 
 POST {{host}}/api/v{{version}}/domain/create
 Content-Type: application/json
@@ -56,3 +56,6 @@ POST {{host}}/api/server/restart
 
 ### Server status
 GET {{host}}/api/server/status
+
+### Documentation
+GET {{host}}/api/documentation

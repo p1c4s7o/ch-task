@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Providers;
+namespace App\Providers;
 
 use App\Contracts\Nginx\CommandExecutorInterface;
 use App\Contracts\Nginx\CommandMiddlewareInterface;

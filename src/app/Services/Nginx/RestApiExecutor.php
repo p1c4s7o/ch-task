@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Services\Nginx;
+namespace App\Services\Nginx;
 
 use App\Contracts\Nginx\CommandExecutorInterface;
 use App\Domain\Nginx\ValueObjects\NginxCommandResult;
