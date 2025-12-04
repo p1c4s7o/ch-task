@@ -2,5 +2,5 @@
 .DS_Store
 /.idea
 docker/medium/.idea
-#/docker/simple/www/laravel
-#/docker/medium/www/laravel
+/docker/simple/www/laravel
+/docker/medium/www/laravel
