@@ -12,7 +12,7 @@ _Стандартний домен_
 _Тестовий піддомен_ 
 <img src="docs/td33_localhost_8080.png" alt="td33.localhost:8080">
 
-_Стандартний піддомен з портом_ 
+_Тестовий піддомен з портом_ 
 <img src="docs/td33_localhost_8082.png" alt="td33.localhost:8082">
 
 ## Requirements
@@ -22,7 +22,17 @@ _Стандартний піддомен з портом_
 - Docker(Desktop)
 - 16GB Memory
 
-## Environments
+## Build & Tests Environment
+
+- **Docker Engine:** 28.1.1
+- **API Version:** 1.49
+- **Go Version:** go1.23.8
+- **OS/Arch:** darwin/amd64
+- **Context:** desktop-linux
+- **Docker Compose:** v2.35.1-desktop.1
+
+
+# Environments
 
 ## Основні шляхи
 
@@ -122,19 +132,6 @@ _Стандартний піддомен з портом_
 > Профіль `medium` розгортає nginx та laravel на різних контейнерах.
 > <br> В контейнері з nginx встановлюється php та laravel відправляє на нього запити.
 > <br> Тут `{HOST}` змінюється для розділу Керування NGINX
-
-## hard
-
-> Профіль `hard` розгортає контейнер laravel.
-> Для кожного нового домену розгортається новий контейнер nginx на машині хоста через проксі
-`tecnativa/docker-socket-proxy`.
->
-> Тут `{HOST}` змінюється для розділу Керування NGINX
-
-**P.S. При правильній конфігурації `tecnativa/docker-socket-proxy` ризик пошкодження основного середовища мінімальний.**
-
-### P.P.S. Однак він не дорівнює нулю
-
 
 ## Summary
 

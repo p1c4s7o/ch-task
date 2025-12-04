@@ -61,38 +61,10 @@ services:
       - backend
     command: supervisord -c /etc/supervisord.conf
 
-  hard:
-    profiles:
-      - hard
-    build:
-      context: .
-
-  docker-socket-proxy:
-    profiles:
-#      - medium
-      - hard
-    image: tecnativa/docker-socket-proxy
-    container_name: docker-socket-proxy
-    restart: unless-stopped
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-    environment:
-      CONTAINERS: 1
-      IMAGES: 0
-      AUTH: 0
-      INFO: 1
-      NETWORKS: 1
-      SERVICES: 1
-      VOLUMES: 0
-      POST: 0
-    ports:
-      - "2375:2375"
-
   redis:
     profiles:
       - simple
       - medium
-      - hard
     image: redis:7-alpine
     container_name: my-redis
     restart: unless-stopped
