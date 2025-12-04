@@ -1,5 +1,5 @@
 services:
-  app:
+  simple:
     profiles:
       - simple
     build:
@@ -12,34 +12,54 @@ services:
     volumes:
       - ./docker/simple/nginx/sites:/etc/nginx/conf.d
       - ./docker/simple/www:/var/www/
+    networks:
+      - redis-server
     environment:
-      - CONTAINER_MODE=simple
       - PYTHONWARNINGS=ignore
       - L5_SWAGGER_CONST_HOST="http://127.0.0.1:81"
     command: supervisord -c /etc/supervisord.conf
 
-  laravel:
+  laravel-medium:
     profiles:
       - medium
-      - hard
     build:
       context: .
-      dockerfile: docker/php/Dockerfile
+      dockerfile: docker/medium/scripts/laravel/Dockerfile
     ports:
       - "81:81"
+    volumes:
+      - ./docker/medium/nginx/sites:/etc/nginx/conf.d
+      - ./docker/medium/www:/var/www/
+    environment:
+      EXEC_PROVIDER: nginx-sites-medium:9000
+      SECRET_PROVIDER: apikey_2025
     networks:
       - backend
+      - redis-server
+    command: ./artisan serve --host=0.0.0.0 --port=81
 
-  nginx-sites:
+  nginx-sites-medium:
     profiles:
       - medium
     build:
       context: .
+      dockerfile: docker/medium/scripts/backend/go/Dockerfile
+#      dockerfile: docker/medium/scripts/backend/php/Dockerfile
     ports:
       - "8080:80"
       - "8001-8005:8001-8005"
+    volumes:
+      - ./docker/medium/nginx/sites:/etc/nginx/conf.d
+      - ./docker/medium/www/html:/var/www/html
+    expose:
+      - "9000"
+    environment:
+      - BACKEND_PORT=9000
+      - SEC_TOKEN=apikey_2025
+      - PYTHONWARNINGS=ignore
     networks:
       - backend
+    command: supervisord -c /etc/supervisord.conf
 
   hard:
     profiles:
@@ -72,7 +92,7 @@ services:
     profiles:
       - simple
       - medium
-    #      - hard
+      - hard
     image: redis:7-alpine
     container_name: my-redis
     restart: unless-stopped
@@ -80,6 +100,8 @@ services:
       - "6379:6379"
     volumes:
       - redis-data:/data
+    networks:
+      - redis-server
     command:   [
       "redis-server",
       "--appendonly", "no",
@@ -93,3 +115,4 @@ volumes:
 
 networks:
   backend:
+  redis-server:

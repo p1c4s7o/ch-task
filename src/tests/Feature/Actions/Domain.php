@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Ch\Feature\Actions;
+namespace tests\Feature\Actions;
 
 use App\Actions\Domain\GetDomainStatusAction;
 use App\Contracts\Nginx\CommandServiceInterface;
@@ -11,7 +11,7 @@ use App\Helpers\ApiResult;
 use App\Services\Nginx\NginxHost;
 use App\Services\Nginx\NginxStore;
 use Mockery\MockInterface;
-use Tests\ch\TestCaseHost;
+use tests\TestCaseHost;
 
 class Domain extends TestCaseHost
 {

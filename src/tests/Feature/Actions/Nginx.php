@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Ch\Feature\Actions;
+namespace tests\Feature\Actions;
 
 use App\Contracts\Nginx\CommandServiceInterface;
 use App\Domain\Nginx\Factories\NginxHostServiceFactory;
@@ -9,7 +9,7 @@ use App\Domain\Nginx\ValueObjects\NginxCommandResult;
 use App\Services\Nginx\NginxHost;
 use App\Services\Nginx\NginxStore;
 use Mockery\MockInterface;
-use Tests\ch\TestCaseHost;
+use tests\TestCaseHost;
 
 class Nginx extends TestCaseHost
 {

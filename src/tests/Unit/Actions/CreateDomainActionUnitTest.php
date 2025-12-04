@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Ch\Unit\Actions;
+namespace tests\Unit\Actions;
 
 use App\Actions\Domain\CreateDomainAction;
 use App\Contracts\Nginx\CommandServiceInterface;
@@ -16,7 +16,7 @@ use App\Services\Nginx\NginxStore;
 use Exception;
 use Mockery;
 use PHPUnit\Event\RuntimeException;
-use Tests\ch\TestCaseHost;
+use tests\TestCaseHost;
 
 class CreateDomainActionUnitTest extends TestCaseHost
 {

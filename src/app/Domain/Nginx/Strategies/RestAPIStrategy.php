@@ -2,8 +2,8 @@
 
 namespace app\Domain\Nginx\Strategies;
 
-use _PHPStan_e870ac104\Symfony\Component\String\Exception\RuntimeException;
 use App\Contracts\Nginx\CommandStrategyInterface;
+use RuntimeException;
 
 class RestAPIStrategy implements CommandStrategyInterface
 {
@@ -18,7 +18,7 @@ class RestAPIStrategy implements CommandStrategyInterface
     {
         return [
             $method,
-            implode('/', [rtrim($uri, '/') . '/' , $token, $endpoint]),
+            implode('/', [rtrim($uri, '/') , $token, $endpoint]),
         ];
     }
 
@@ -37,12 +37,12 @@ class RestAPIStrategy implements CommandStrategyInterface
             throw new RuntimeException('token is null');
 
         return match ($command) {
-            'restart' => $this->create_api('post', $base_uri, $token, '/restart'),
-            'status' => $this->create_api('post', $base_uri, $token, '/status'),
-            'reload' => $this->create_api('post', $base_uri, $token, '/reload'),
-            'start' => $this->create_api('post', $base_uri, $token, '/start'),
-            'stop' => $this->create_api('post', $base_uri, $token, '/stop'),
-            'test' => $this->create_api('post', $base_uri, $token, '/test'),
+            'restart' => $this->create_api('post', $base_uri, $token, 'restart'),
+            'status' => $this->create_api('post', $base_uri, $token, 'status'),
+            'reload' => $this->create_api('post', $base_uri, $token, 'reload'),
+            'start' => $this->create_api('post', $base_uri, $token, 'start'),
+            'stop' => $this->create_api('post', $base_uri, $token, 'stop'),
+            'test' => $this->create_api('post', $base_uri, $token, 'test'),
             default => throw new \InvalidArgumentException("Unknown command '$command'")
         };
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Ch\Unit\Actions;
+namespace tests\Unit\Actions;
 
 use App\Actions\Domain\DeleteDomainAction;
 use App\Contracts\Nginx\CommandServiceInterface;
@@ -14,7 +14,7 @@ use App\Services\Nginx\NginxHost;
 use App\Services\Nginx\NginxStore;
 use Exception;
 use Mockery;
-use Tests\ch\TestCaseHost;
+use tests\TestCaseHost;
 
 class DeleteDomainActionUnitTest extends TestCaseHost
 {

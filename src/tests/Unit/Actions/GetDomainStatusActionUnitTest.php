@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Ch\Unit\Actions;
+namespace tests\Unit\Actions;
 
 use App\Actions\Domain\GetDomainStatusAction;
 use App\Domain\Nginx\Enums\NginxApiVersion;
@@ -9,7 +9,7 @@ use App\Services\Nginx\NginxHost;
 use App\Services\Nginx\NginxStore;
 use Exception;
 use Mockery;
-use Tests\ch\TestCaseHost;
+use tests\TestCaseHost;
 
 
 class GetDomainStatusActionUnitTest extends TestCaseHost
